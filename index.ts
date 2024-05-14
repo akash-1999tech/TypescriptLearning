@@ -359,7 +359,6 @@ const movie1: MovieGenra = {
 const newMov = movie1.printMovieInfo("jhon wick", 100, 9.0);
 console.log(newMov);
 
-
 //Interfaces with class component
 interface Vechile {
   start(): void;
@@ -378,7 +377,6 @@ class Car implements Vechile {
 
 const myCar = new Car();
 myCar.stop();
-
 
 //Declaration Merging
 
@@ -407,3 +405,88 @@ const CarDetails: myCar = {
 
 CarDetails.start();
 CarDetails.stop();
+
+//normal function vs Generic Function
+
+//normal
+function printNumber(item: number, defaultValue: number): [number, number] {
+  return [item, defaultValue];
+}
+
+function printString(item: string, defaultValue: string): [string, string] {
+  return [item, defaultValue];
+}
+
+function printBoolean(
+  item: boolean,
+  defaultValue: boolean
+): [boolean, boolean] {
+  return [item, defaultValue];
+}
+
+const num = printNumber(1, 2);
+const str = printString("1", "2");
+const bool = printBoolean(true, false);
+console.log(num);
+console.log(str);
+console.log(bool);
+
+//Generic
+function printInfo<Type>(item: Type, defaultValue: Type): [Type, Type] {
+  return [item, defaultValue];
+}
+
+const nums = printInfo<number>(12, 20);
+const strs = printInfo<string>("world", "hello");
+const bools = printInfo<boolean>(true, false);
+console.log(nums);
+console.log(strs);
+console.log(bools);
+
+//we can also use without mentinoning type parameter
+const nums1 = printInfo(20, 12);
+const strs1 = printInfo("hello", "world");
+const bools1 = printInfo(false, true);
+console.log(nums1);
+console.log(strs1);
+console.log(bools1);
+
+//generic with interface
+interface Dog {
+  name: string;
+  breed: string;
+}
+
+const BuddyDog = printInfo<Dog>(
+  { name: "Buddy", breed: "lab" },
+  { name: "default", breed: "unknown" }
+);
+
+console.log(BuddyDog);
+
+// get a randon key value pairs using generics
+function getRandomKeyValuePairs<T>(obj: { [key: string]: T }): {
+  key: string;
+  value: T;
+} {
+  const keys = Object.keys(obj);
+  const randKey = keys[Math.floor(Math.random() * keys.length)];
+  return { key: randKey, value: obj[randKey] };
+}
+
+const stringObject = {
+  a: "apple",
+  b: "banana",
+  c: "cherry",
+};
+const randomStringPair = getRandomKeyValuePairs<string>(stringObject);
+console.log(randomStringPair);
+
+// filter array based on condition using generics
+function filterArray<T>(array: T[], condition: (item: T) => boolean): T[] {
+  return array.filter((item) => condition(item));
+}
+
+const numberArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const evenNumbers = filterArray<number>(numberArray, (num) => num % 2 === 0);
+console.log(evenNumbers);
