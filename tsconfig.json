@@ -1,0 +1,7 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      // Other compiler options...
+    },
+    // Other configuration options...
+  }
