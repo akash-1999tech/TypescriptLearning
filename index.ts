@@ -381,3 +381,29 @@ myCar.stop();
 
 
 //Declaration Merging
+
+//original interface
+interface myCar {
+  brand: string;
+  start(): void;
+}
+
+//Declaration merging (interface extension)
+interface myCar {
+  model: string;
+  stop(): void;
+}
+
+const CarDetails: myCar = {
+  brand: "BMW",
+  model: "M3",
+  start(): void {
+    console.log("start");
+  },
+  stop(): void {
+    console.log("stop");
+  },
+};
+
+CarDetails.start();
+CarDetails.stop();
